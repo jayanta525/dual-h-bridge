@@ -1,4 +1,4 @@
-update=12/04/21 15:37:32
+update=12/22/21 22:10:54
 version=1
 last_client=kicad
 [general]
@@ -240,7 +240,7 @@ dPairViaGap=0.25
 [schematic_editor]
 version=1
 PageLayoutDescrFile=
-PlotDirectoryName=
+PlotDirectoryName=docs/sch/
 SubpartIdSeparator=0
 SubpartFirstId=65
 NetFmtName=
