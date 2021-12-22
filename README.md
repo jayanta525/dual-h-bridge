@@ -10,3 +10,4 @@
 
 
 #### Made for Dual 250W Brushed wheelchair motor
+#### Schematics: https://jayanta525.gitlab.io/dual-h-bridge/sch/
