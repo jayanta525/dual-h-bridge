@@ -3,21 +3,69 @@
 
 <head>
     <script src="svg-pan-zoom.js"></script>
+    <script src="jquery.min.js"></script>
 </head>
 
 <body>
-    <embed id="demo-tiger" type="image/svg+xml"
-        style="display: block; margin-left: auto; margin-right: auto; width: 90em; border:1px solid black; "
-        src="h-bridge-controller.svg" />
+    <button id="swap"
+        style="position: fixed; right: 20px; top: 270px; padding: 10px 20px; background: red; border: 1px solid #ff0404;">swap</button>
+    <div id="container"></div>
 
     <script>
         // Don't use window.onLoad like this in production, because it can only listen to one function.
-        window.onload = function () {
-            svgPanZoom('#demo-tiger', {
-                zoomEnabled: true,
-                controlIconsEnabled: true
-            });
-        };
+        $(function () {
+            var lastEventListener = null;
+
+            function createNewEmbed(src) {
+                var embed = document.createElement('embed');
+                embed.setAttribute('style', 'display: block; margin-left: auto; margin-right: auto; width: 90em; border:1px solid black;');
+                embed.setAttribute('type', 'image/svg+xml');
+                embed.setAttribute('src', src);
+
+                document.getElementById('container').appendChild(embed)
+
+                lastEventListener = function () {
+                    svgPanZoom(embed, {
+                        zoomEnabled: true,
+                        controlIconsEnabled: true
+                    });
+                }
+                embed.addEventListener('load', lastEventListener)
+
+                return embed
+            }
+
+            var lastEmbedSrc = 'h-bridge-controller.svg'
+                , lastEmbed = createNewEmbed(lastEmbedSrc)
+                ;
+
+            function removeEmbed() {
+                // Destroy svgpanzoom
+                svgPanZoom(lastEmbed).destroy()
+                // Remove event listener
+                lastEmbed.removeEventListener('load', lastEventListener)
+                // Null last event listener
+                lastEventListener = null
+                // Remove embed element
+                document.getElementById('container').removeChild(lastEmbed)
+                // Null reference to embed
+                lastEmbed = null
+            }
+
+
+            $('#swap').on('click', function () {
+                // Remove last added svg
+                removeEmbed()
+
+                if (lastEmbedSrc == 'h-bridge-controller.svg') {
+                    lastEmbedSrc = 'motor-left-H-Bridge-left.svg'
+                } else {
+                    lastEmbedSrc = 'h-bridge-controller.svg'
+                }
+
+                lastEmbed = createNewEmbed(lastEmbedSrc)
+            })
+        });
     </script>
 
 </body>
