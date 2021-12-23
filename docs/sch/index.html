@@ -4,12 +4,20 @@
 <head>
     <script src="svg-pan-zoom.js"></script>
     <script src="jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
 </head>
 
 <body>
-    <button id="swap"
-        style="position: fixed; right: 20px; top: 270px; padding: 10px 20px; background: red; border: 1px solid #ff0404;">swap</button>
-    <div id="container"></div>
+    <button id="swap1" type="button" class="btn btn-primary"
+        style="position: fixed; right: 20px; top: 270px; padding: 10px 20px;">Home</button>
+    <button id="swap2" type="button" class="btn btn-primary"
+        style="position: fixed; right: 20px; top: 370px; padding: 10px 20px;">motor-left-H-Bridge-left</button>
+    <button id="swap3" type="button" class="btn btn-primary"
+        style="position: fixed; right: 20px; top: 470px; padding: 10px 20px;">motor-right-H-Bridge-right</button>
+    <button id="swap4" type="button" class="btn btn-primary"
+        style="position: fixed; right: 20px; top: 570px; padding: 10px 20px;">atmega328p_sch-ATMega328P</button>
+    <div id="container" style="padding-top: 10px;"></div>
 
     <script>
         // Don't use window.onLoad like this in production, because it can only listen to one function.
@@ -18,7 +26,7 @@
 
             function createNewEmbed(src) {
                 var embed = document.createElement('embed');
-                embed.setAttribute('style', 'display: block; margin-left: auto; margin-right: auto; width: 90em; border:1px solid black;');
+                embed.setAttribute('style', 'display: block; margin-left: auto; margin-right: auto; width: 100em; border:1px solid black;');
                 embed.setAttribute('type', 'image/svg+xml');
                 embed.setAttribute('src', src);
 
@@ -53,16 +61,28 @@
             }
 
 
-            $('#swap').on('click', function () {
+            $('#swap1').on('click', function () {
                 // Remove last added svg
                 removeEmbed()
-
-                if (lastEmbedSrc == 'h-bridge-controller.svg') {
-                    lastEmbedSrc = 'motor-left-H-Bridge-left.svg'
-                } else {
-                    lastEmbedSrc = 'h-bridge-controller.svg'
-                }
-
+                lastEmbedSrc = 'h-bridge-controller.svg'
+                lastEmbed = createNewEmbed(lastEmbedSrc)
+            })
+            $('#swap2').on('click', function () {
+                // Remove last added svg
+                removeEmbed()
+                lastEmbedSrc = 'motor-left-H-Bridge-left.svg'
+                lastEmbed = createNewEmbed(lastEmbedSrc)
+            })
+            $('#swap3').on('click', function () {
+                // Remove last added svg
+                removeEmbed()
+                lastEmbedSrc = 'motor-right-H-Bridge-right.svg'
+                lastEmbed = createNewEmbed(lastEmbedSrc)
+            })
+            $('#swap4').on('click', function () {
+                // Remove last added svg
+                removeEmbed()
+                lastEmbedSrc = 'atmega328p_sch-ATMega328P.svg'
                 lastEmbed = createNewEmbed(lastEmbedSrc)
             })
         });
